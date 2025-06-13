@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оглавление</title>
+  <style>
+    :root {
+      --bg: #f6f6f6;
+      --text: #000000;
+      --accent: #000000;
+      --border: #dddddd;
+      --section-bg: #ffffff;
+      --hover-bg: #efefef;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    #toc {
+      padding: 16px;
+    }
+
+    .section, .subsection {
+      background: var(--section-bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section > button,
+    .subsection > button {
+      width: 100%;
+      padding: 16px;
+      background: var(--section-bg);
+      border: none;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section > button svg,
+    .subsection > button svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s ease;
+    }
+
+    .section.expanded > button svg,
+    .subsection.expanded > button svg {
+      transform: rotate(180deg);
+    }
+
+    .subsection-list,
+    .post-list {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .subsection-list.show,
+    .post-list.show {
+      max-height: 1000px;
+      opacity: 1;
+    }
+
+    .post a {
+      display: block;
+      padding: 16px;
+      text-decoration: none;
+      color: var(--accent);
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .post a:hover {
+      background: var(--hover-bg);
+    }
+
+    @media (max-width: 600px) {
+      #toc {
+        padding: 8px;
+      }
+
+      .section > button,
+      .subsection > button,
+      .post a {
+        padding: 12px;
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="toc"></div>
+
+  <script>
+    const arrowSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6"/></svg>`;
+
+    const tocData = [
+      {
+        title: "Глава 1: Введение",
+        id: "chapter1",
+        subchapters: [
+          {
+            title: "Что такое продукт?",
+            id: "sub1_1",
+            posts: [
+              { title: "Определение", url: "https://t.me/pm_faq/34" },
+              { title: "Примеры продуктов", url: "https://t.me/pm_faq/35" },
+            ]
+          },
+          {
+            title: "Роль продакт-менеджера",
+            id: "sub1_2",
+            posts: [
+              { title: "Обязанности", url: "https://t.me/pm_faq/36" }
+            ]
+          }
+        ]
+      },
+      {
+        title: "Глава 2: Навыки",
+        id: "chapter2",
+        subchapters: [
+          {
+            title: "Коммуникация",
+            id: "sub2_1",
+            posts: [
+              { title: "Общение с командой", url: "https://t.me/pm_faq/40" }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const tocContainer = document.getElementById("toc");
+    const savedState = JSON.parse(localStorage.getItem("toc_state")) || {};
+
+    function saveState() {
+      localStorage.setItem("toc_state", JSON.stringify(savedState));
+    }
+
+    function createToc() {
+      tocContainer.innerHTML = "";
+
+      tocData.forEach(chapter => {
+        const section = document.createElement("div");
+        section.className = "section";
+
+        const chapterBtn = document.createElement("button");
+        chapterBtn.innerHTML = `<span>${chapter.title}</span>${arrowSVG}`;
+        chapterBtn.onclick = () => {
+          if (savedState.openChapter === chapter.id) {
+            delete savedState.openChapter;
+            delete savedState.openSubchapter;
+          } else {
+            savedState.openChapter = chapter.id;
+            delete savedState.openSubchapter;
+          }
+          saveState();
+          createToc();
+        };
+
+        section.appendChild(chapterBtn);
+
+        if (savedState.openChapter === chapter.id) {
+          section.classList.add("expanded");
+
+          const subList = document.createElement("div");
+          subList.className = "subsection-list show";
+
+          chapter.subchapters.forEach(sub => {
+            const subsection = document.createElement("div");
+            subsection.className = "subsection";
+
+            const subBtn = document.createElement("button");
+            subBtn.innerHTML = `<span>${sub.title}</span>${arrowSVG}`;
+            subBtn.onclick = (e) => {
+              e.stopPropagation();
+              if (savedState.openSubchapter === sub.id) {
+                delete savedState.openSubchapter;
+              } else {
+                savedState.openSubchapter = sub.id;
+              }
+              saveState();
+              createToc();
+            };
+
+            subsection.appendChild(subBtn);
+
+            if (savedState.openSubchapter === sub.id) {
+              subsection.classList.add("expanded");
+              const postList = document.createElement("div");
+              postList.className = "post-list show";
+
+              sub.posts.forEach(post => {
+                const postDiv = document.createElement("div");
+                postDiv.className = "post";
+                const link = document.createElement("a");
+                link.href = post.url;
+                link.textContent = post.title;
+                postDiv.appendChild(link);
+                postList.appendChild(postDiv);
+              });
+
+              subsection.appendChild(postList);
+            }
+
+            subList.appendChild(subsection);
+          });
+
+          section.appendChild(subList);
+        }
+
+        tocContainer.appendChild(section);
+      });
+    }
+
+    createToc();
+  </script>
+</body>
+</html>
