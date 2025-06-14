@@ -1,112 +1,105 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Оглавление | PM FAQ</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Оглавление</title>
   <style>
-    :root {
-      --bg: #f6f6f6;
-      --text: #000000;
-      --accent: #000000;
-      --border: #dddddd;
-      --section-bg: #A2CEFF;
-      --subsection-bg: #D3E8FF;
-      --hover-bg: #efefef;
-    }
-
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
       margin: 0;
       padding: 0;
-      background: var(--bg);
-      color: var(--text);
     }
 
-    #toc {
+    .toc-container {
+      max-width: 800px;
+      margin: 20px auto;
       padding: 16px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-    .section {
-      background: var(--section-bg);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .subsection {
-      background: var(--subsection-bg);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .section > button,
-    .subsection > button {
-      width: 100%;
-      padding: 16px;
-      background: var(--section-bg);
-      border: none;
-      text-align: left;
-      font-size: 16px;
-      font-weight: 500;
+    .chapter {
+      background-color: #CCE5FF;
+      color: #003366;
+      padding: 12px 16px;
       cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      font-weight: bold;
+      border-radius: 8px;
+      margin-top: 10px;
+      transition: background-color 0.3s;
     }
 
-    .section > button svg,
-    .subsection > button svg {
-      width: 16px;
-      height: 16px;
-      transition: transform 0.2s ease;
+    .chapter:hover {
+      background-color: #b3d7ff;
     }
 
-    .section.expanded > button svg,
-    .subsection.expanded > button svg {
-      transform: rotate(180deg);
-    }
-
-    .subsection-list,
-    .post-list {
+    .subchapters {
       overflow: hidden;
       max-height: 0;
-      transition: max-height 0.3s ease, opacity 0.3s ease;
+      transition: max-height 0.4s ease-out, opacity 0.4s ease-out;
       opacity: 0;
     }
 
-    .subsection-list.show,
-    .post-list.show {
+    .subchapters.open {
       max-height: 1000px;
       opacity: 1;
     }
 
-    .post a {
-      display: block;
-      padding: 16px;
-      text-decoration: none;
-      color: var(--accent);
-      font-size: 16px;
-      font-weight: 400;
+    .subchapter {
+      background-color: #E6F0FF;
+      color: #003366;
+      padding: 10px 16px;
+      cursor: pointer;
+      margin: 6px 0;
+      border-radius: 6px;
+      transition: background-color 0.3s;
     }
 
-    .post a:hover {
-      background: var(--hover-bg);
+    .subchapter:hover {
+      background-color: #d6e9ff;
+    }
+
+    .posts {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.4s ease-out, opacity 0.4s ease-out;
+      opacity: 0;
+      padding-left: 20px;
+    }
+
+    .posts.open {
+      max-height: 1000px;
+      opacity: 1;
+    }
+
+    .post-link {
+      display: block;
+      padding: 6px 0;
+      color: #0066cc;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .post-link:hover {
+      color: #004999;
+      text-decoration: underline;
     }
 
     @media (max-width: 600px) {
-      #toc {
-        padding: 8px;
-      }
-
-      .section > button,
-      .subsection > button,
-      .post a {
+      .toc-container {
         padding: 12px;
-        font-size: 15px;
+      }
+      .chapter, .subchapter {
+        font-size: 16px;
       }
     }
   </style>
 </head>
 <body>
-  <div id="toc"></div>
+  <div class="toc-container" id="toc"></div>
 
   <script>
     const arrowSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6"/></svg>`;
@@ -261,90 +254,70 @@
       }
     ];
 
-    const tocContainer = document.getElementById("toc");
-    const savedState = JSON.parse(localStorage.getItem("toc_state")) || {};
+    const toc = document.getElementById("toc");
 
-    function saveState() {
-      localStorage.setItem("toc_state", JSON.stringify(savedState));
+    function saveState(chapterIndex, subchapterIndex) {
+      localStorage.setItem("tocState", JSON.stringify({ chapterIndex, subchapterIndex }));
     }
 
-    function createToc() {
-      tocContainer.innerHTML = "";
+    function loadState() {
+      try {
+        return JSON.parse(localStorage.getItem("tocState")) || {};
+      } catch {
+        return {};
+      }
+    }
 
-      tocData.forEach(chapter => {
-        const section = document.createElement("div");
-        section.className = "section";
+    const state = loadState();
 
-        const chapterBtn = document.createElement("button");
-        chapterBtn.innerHTML = `<span>${chapter.title}</span>${arrowSVG}`;
-        chapterBtn.onclick = () => {
-          if (savedState.openChapter === chapter.id) {
-            delete savedState.openChapter;
-            delete savedState.openSubchapter;
-          } else {
-            savedState.openChapter = chapter.id;
-            delete savedState.openSubchapter;
-          }
-          saveState();
-          createToc();
-        };
+    tocData.forEach((chapter, cIdx) => {
+      const chapterEl = document.createElement("div");
+      chapterEl.className = "chapter";
+      chapterEl.textContent = chapter.title;
+      toc.appendChild(chapterEl);
 
-        section.appendChild(chapterBtn);
+      const subchapterList = document.createElement("div");
+      subchapterList.className = "subchapters";
+      toc.appendChild(subchapterList);
 
-        if (savedState.openChapter === chapter.id) {
-          section.classList.add("expanded");
+      chapter.subchapters.forEach((subchapter, sIdx) => {
+        const subchapterEl = document.createElement("div");
+        subchapterEl.className = "subchapter";
+        subchapterEl.textContent = subchapter.title;
+        subchapterList.appendChild(subchapterEl);
 
-          const subList = document.createElement("div");
-          subList.className = "subsection-list show";
+        const postList = document.createElement("div");
+        postList.className = "posts";
+        subchapterList.appendChild(postList);
 
-          chapter.subchapters.forEach(sub => {
-            const subsection = document.createElement("div");
-            subsection.className = "subsection";
+        subchapter.posts.forEach(post => {
+          const postLink = document.createElement("a");
+          postLink.className = "post-link";
+          postLink.href = post.link;
+          postLink.textContent = post.title;
+          postLink.target = "_blank";
+          postList.appendChild(postLink);
+        });
 
-            const subBtn = document.createElement("button");
-            subBtn.innerHTML = `<span>${sub.title}</span>${arrowSVG}`;
-            subBtn.onclick = (e) => {
-              e.stopPropagation();
-              if (savedState.openSubchapter === sub.id) {
-                delete savedState.openSubchapter;
-              } else {
-                savedState.openSubchapter = sub.id;
-              }
-              saveState();
-              createToc();
-            };
+        subchapterEl.addEventListener("click", () => {
+          const isOpen = postList.classList.toggle("open");
+          if (isOpen) saveState(cIdx, sIdx);
+        });
 
-            subsection.appendChild(subBtn);
-
-            if (savedState.openSubchapter === sub.id) {
-              subsection.classList.add("expanded");
-              const postList = document.createElement("div");
-              postList.className = "post-list show";
-
-              sub.posts.forEach(post => {
-                const postDiv = document.createElement("div");
-                postDiv.className = "post";
-                const link = document.createElement("a");
-                link.href = post.url;
-                link.textContent = post.title;
-                postDiv.appendChild(link);
-                postList.appendChild(postDiv);
-              });
-
-              subsection.appendChild(postList);
-            }
-
-            subList.appendChild(subsection);
-          });
-
-          section.appendChild(subList);
+        if (state.chapterIndex === cIdx && state.subchapterIndex === sIdx) {
+          subchapterList.classList.add("open");
+          postList.classList.add("open");
         }
-
-        tocContainer.appendChild(section);
       });
-    }
 
-    createToc();
+      chapterEl.addEventListener("click", () => {
+        subchapterList.classList.toggle("open");
+      });
+
+      if (state.chapterIndex === cIdx) {
+        subchapterList.classList.add("open");
+      }
+    });
   </script>
 </body>
 </html>
