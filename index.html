@@ -11,6 +11,7 @@
       --accent: #000000;
       --border: #dddddd;
       --section-bg: #A2CEFF;
+      --subsection-bg: #D3E8FF;
       --hover-bg: #efefef;
     }
 
@@ -26,8 +27,13 @@
       padding: 16px;
     }
 
-    .section, .subsection {
+    .section {
       background: var(--section-bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .subsection {
+      background: var(--subsection-bg);
       border-bottom: 1px solid var(--border);
     }
 
