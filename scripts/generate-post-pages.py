@@ -976,19 +976,19 @@ def source_card(post: Post) -> str:
     if len(post.telegram_ids) == 1:
         links = (
             f'<a href="https://t.me/pm_faq/{post.telegram_ids[0]}" target="_blank" '
-            'rel="noopener noreferrer">Открыть публикацию</a>'
+            'rel="noopener noreferrer">Перейти к обсуждению</a>'
         )
-        copy = "Исходная публикация сохранена для контекста и обсуждения в канале."
+        copy = "Комментарии к материалу доступны в Telegram — делитесь мнением и задавайте вопросы."
     else:
         links = "\n              ".join(
             f'<a href="https://t.me/pm_faq/{telegram_id}" target="_blank" '
-            f'rel="noopener noreferrer">Часть {part}</a>'
+            f'rel="noopener noreferrer">Обсудить часть {part}</a>'
             for part, telegram_id in enumerate(post.telegram_ids, start=1)
         )
-        copy = "Материал выходил в двух сообщениях. На этой странице обе части объединены."
+        copy = "Материал выходил в двух сообщениях. Комментарии и обсуждение доступны в Telegram."
     return f"""<section class="source-card" aria-labelledby="source-title">
         <div class="source-card-inner">
-          <h2 id="source-title">Оригинал в Telegram</h2>
+          <h2 id="source-title">Обсудить в Telegram</h2>
           <p>{copy}</p>
           <div class="source-links">
             {links}
