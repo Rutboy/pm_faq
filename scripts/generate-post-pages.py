@@ -19,6 +19,7 @@ from urllib.parse import parse_qs, unquote, urlparse
 
 
 SITE_URL = "https://rutboy.github.io/pm_faq"
+SOCIAL_IMAGE_URL = f"{SITE_URL}/assets/social-card.jpg"
 NOSCRIPT_TOC_START = "<!-- generated:noscript-toc:start -->"
 NOSCRIPT_TOC_END = "<!-- generated:noscript-toc:end -->"
 SPLIT_POSTS = {13: 14, 18: 19, 52: 53, 92: 93, 125: 126}
@@ -1028,7 +1029,12 @@ def render_page(
         "datePublished": published_at.isoformat(),
         "dateModified": modified_at.isoformat(),
         "mainEntityOfPage": canonical,
-        "image": f"{SITE_URL}/channel-avatar.jpg",
+        "image": {
+            "@type": "ImageObject",
+            "url": SOCIAL_IMAGE_URL,
+            "width": 1200,
+            "height": 630,
+        },
         "articleSection": post.subchapter,
         "wordCount": word_count,
         "author": {"@type": "Organization", "name": "PM FAQ", "url": SITE_URL + "/"},
@@ -1086,20 +1092,20 @@ def render_page(
   <meta property="og:title" content="{html.escape(post.title, quote=True)}" />
   <meta property="og:description" content="{html.escape(description, quote=True)}" />
   <meta property="og:url" content="{canonical}" />
-  <meta property="og:image" content="{SITE_URL}/channel-avatar.jpg" />
+  <meta property="og:image" content="{SOCIAL_IMAGE_URL}" />
   <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:image:width" content="240" />
-  <meta property="og:image:height" content="240" />
-  <meta property="og:image:alt" content="Аватар канала PM FAQ" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="PM FAQ — база знаний для продакт-менеджеров" />
   <meta property="article:published_time" content="{published_at.isoformat()}" />
   <meta property="article:modified_time" content="{modified_at.isoformat()}" />
   <meta property="article:section" content="{html.escape(post.subchapter, quote=True)}" />
 
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="{html.escape(post.title, quote=True)}" />
   <meta name="twitter:description" content="{html.escape(description, quote=True)}" />
-  <meta name="twitter:image" content="{SITE_URL}/channel-avatar.jpg" />
-  <meta name="twitter:image:alt" content="Аватар канала PM FAQ" />
+  <meta name="twitter:image" content="{SOCIAL_IMAGE_URL}" />
+  <meta name="twitter:image:alt" content="PM FAQ — база знаний для продакт-менеджеров" />
 
   <title>{html.escape(title_text)}</title>
   <script type="application/ld+json">
