@@ -306,6 +306,70 @@ a:focus-visible {
   border: 0;
 }
 
+.related-materials {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 6px 48px 0;
+}
+
+.related-materials h2 {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.related-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.related-list li {
+  min-width: 0;
+}
+
+.related-link {
+  display: flex;
+  min-width: 0;
+  min-height: 84px;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 15px 17px;
+  color: var(--ink);
+  background: var(--blue-soft);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.related-link:hover {
+  color: var(--ink);
+  background: var(--paper);
+  border-color: var(--line-strong);
+}
+
+.related-topic {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.045em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.related-title {
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.4;
+}
+
 .source-card {
   max-width: 750px;
   margin: 12px auto 0;
@@ -469,6 +533,14 @@ a:focus-visible {
     font-size: 20px;
   }
 
+  .related-materials {
+    padding: 4px 24px 0;
+  }
+
+  .related-list {
+    grid-template-columns: 1fr;
+  }
+
   .source-card {
     padding: 12px 24px 32px;
   }
@@ -503,6 +575,7 @@ a:focus-visible {
   }
 
   .article-body,
+  .related-materials,
   .source-card {
     padding-right: 20px;
     padding-left: 20px;

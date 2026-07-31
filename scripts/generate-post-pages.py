@@ -34,6 +34,10 @@ SUMMARY_HEADINGS = {
 }
 TITLE_OVERRIDES = {129: "Яндекс Что-то"}
 TELEGRAM_ONLY_IDS = {125, 129}
+RELATED_OVERRIDES = {
+    125: (81, 82, 83, 86, 90),
+    129: (46, 47, 48, 49),
+}
 MONTHS_RU = (
     "",
     "января",
@@ -1003,12 +1007,143 @@ def navigation_link(post: Post | None, direction: str) -> str:
     )
 
 
+def select_related_posts(posts: list[Post], current_index: int, limit: int = 4) -> list[Post]:
+    """Choose contextual links with at least three targets beyond prev/next."""
+    if not 3 <= limit <= 5:
+        raise ValueError("Количество связанных материалов должно быть от 3 до 5")
+
+    current = posts[current_index]
+    post_by_id = {post.telegram_id: post for post in posts}
+
+    if current.telegram_id in RELATED_OVERRIDES:
+        try:
+            related = [
+                post_by_id[telegram_id]
+                for telegram_id in RELATED_OVERRIDES[current.telegram_id]
+            ]
+        except KeyError as error:
+            raise ValueError(
+                f"Не найден материал {error.args[0]} из ручной подборки {current.telegram_id}"
+            ) from error
+    else:
+        chapter_items = [
+            (candidate_index, candidate)
+            for candidate_index, candidate in enumerate(posts)
+            if candidate.chapter == current.chapter
+        ]
+        content_items = [
+            item
+            for item in chapter_items
+            if not item[1].subchapter.casefold().startswith("итог")
+            and item[1].subchapter.casefold() != "дополнительные материалы"
+        ]
+
+        if current.subchapter.casefold().startswith("итог") or (
+            current.subchapter.casefold() == "дополнительные материалы"
+        ):
+            first_by_subchapter: dict[str, Post] = {}
+            for _, candidate in content_items:
+                if candidate.subchapter not in first_by_subchapter:
+                    first_by_subchapter[candidate.subchapter] = candidate
+            related = list(first_by_subchapter.values())[:5]
+        else:
+            subchapters: list[str] = []
+            for _, candidate in content_items:
+                if candidate.subchapter not in subchapters:
+                    subchapters.append(candidate.subchapter)
+            subchapter_positions = {
+                subchapter: position for position, subchapter in enumerate(subchapters)
+            }
+            current_subchapter_position = subchapter_positions[current.subchapter]
+            candidates = [
+                (candidate_index, candidate)
+                for candidate_index, candidate in content_items
+                if candidate.telegram_id != current.telegram_id
+            ]
+            candidates.sort(
+                key=lambda item: (
+                    0 if item[1].subchapter == current.subchapter else 1,
+                    abs(
+                        subchapter_positions[item[1].subchapter]
+                        - current_subchapter_position
+                    ),
+                    abs(item[0] - current_index),
+                    item[0],
+                )
+            )
+            sequential_indices = {current_index - 1, current_index + 1}
+            non_sequential = [
+                item for item in candidates if item[0] not in sequential_indices
+            ]
+            has_non_sequential_same_topic = any(
+                candidate.subchapter == current.subchapter
+                for _, candidate in non_sequential
+            )
+            sequential_same_topic = next(
+                (
+                    candidate
+                    for candidate_index, candidate in candidates
+                    if candidate_index in sequential_indices
+                    and candidate.subchapter == current.subchapter
+                ),
+                None,
+            )
+            related = []
+            if sequential_same_topic and not has_non_sequential_same_topic:
+                related.append(sequential_same_topic)
+            related.extend(
+                candidate
+                for _, candidate in non_sequential[: limit - len(related)]
+            )
+
+    if len(related) < 3:
+        raise ValueError(f"Недостаточно связанных материалов для публикации {current.telegram_id}")
+    if len(related) > 5:
+        raise ValueError(f"Слишком много связанных материалов для публикации {current.telegram_id}")
+    if any(candidate.telegram_id == current.telegram_id for candidate in related):
+        raise ValueError(f"Ссылка на саму себя в подборке публикации {current.telegram_id}")
+    if len({candidate.telegram_id for candidate in related}) != len(related):
+        raise ValueError(f"Дубли связанных материалов для публикации {current.telegram_id}")
+    sequential_ids = {
+        posts[index].telegram_id
+        for index in (current_index - 1, current_index + 1)
+        if 0 <= index < len(posts)
+    }
+    new_target_count = sum(
+        candidate.telegram_id not in sequential_ids for candidate in related
+    )
+    if new_target_count < 3:
+        raise ValueError(
+            f"В подборке публикации {current.telegram_id} меньше трёх новых переходов"
+        )
+    return related
+
+
+def related_materials(posts: list[Post]) -> str:
+    items = "\n        ".join(
+        f"""<li>
+          <a class="related-link" href="../{post.telegram_id}/">
+            <span class="related-topic">{html.escape(post.subchapter)}</span>
+            <span class="related-title">{html.escape(post.title)}</span>
+          </a>
+        </li>"""
+        for post in posts
+    )
+    return f"""<nav class="related-materials" aria-labelledby="related-materials-title">
+      <h2 id="related-materials-title">Связанные материалы</h2>
+      <ul class="related-list" role="list">
+        {items}
+      </ul>
+    </nav>"""
+
+
 def render_page(
     post: Post,
     article_html: str,
     telegram_posts: list[TelegramPost],
     previous_post: Post | None,
     next_post: Post | None,
+    related_posts: list[Post],
     page_modified_at: dt.datetime,
 ) -> str:
     published_at = telegram_posts[0].published_at
@@ -1145,6 +1280,8 @@ def render_page(
       <div class="article-body">
         {article_html}
       </div>
+
+      {related_materials(related_posts)}
 
       {source_card(post)}
     </article>
@@ -1303,6 +1440,7 @@ def main() -> None:
             telegram_posts=[telegram[telegram_id] for telegram_id in post.telegram_ids],
             previous_post=posts[index - 1] if index > 0 else None,
             next_post=posts[index + 1] if index + 1 < len(posts) else None,
+            related_posts=select_related_posts(posts, index),
             page_modified_at=page_modified_at,
         )
         page_dir = output_root / "posts" / str(post.telegram_id)
