@@ -36,7 +36,7 @@
     }
 
     body {
-      min-width: 320px;
+      min-width: 0;
       min-height: 100vh;
       margin: 0;
       color: var(--ink);
@@ -68,7 +68,7 @@
     .hero {
       position: relative;
       overflow: hidden;
-      padding: 34px 36px 36px;
+      padding: 28px 30px 30px;
       color: #ffffff;
       background: var(--ink);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -78,21 +78,22 @@
 
     .hero::before {
       position: absolute;
-      top: -125px;
-      right: -95px;
-      width: 330px;
-      height: 330px;
-      border: 58px solid rgba(242, 189, 63, 0.96);
+      box-sizing: border-box;
+      top: -112px;
+      right: -78px;
+      width: 250px;
+      height: 250px;
+      border: 44px solid rgba(242, 189, 63, 0.92);
       border-radius: 50%;
       content: "";
     }
 
     .hero::after {
       position: absolute;
-      right: 154px;
-      bottom: -68px;
-      width: 170px;
-      height: 170px;
+      right: 92px;
+      bottom: -72px;
+      width: 120px;
+      height: 120px;
       background: rgba(47, 98, 173, 0.55);
       border-radius: 50%;
       content: "";
@@ -124,17 +125,13 @@
       text-transform: uppercase;
     }
 
-    .brand-mark {
-      display: grid;
-      width: 38px;
-      height: 38px;
-      color: var(--ink);
-      background: var(--yellow);
-      border-radius: 10px;
-      place-items: center;
-      font-size: 12px;
-      font-weight: 850;
-      letter-spacing: -0.02em;
+    .brand-avatar {
+      width: 44px;
+      height: 44px;
+      object-fit: cover;
+      border: 2px solid rgba(242, 189, 63, 0.9);
+      border-radius: 13px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
     }
 
     .channel-link {
@@ -159,7 +156,7 @@
 
     .hero-copy {
       max-width: 650px;
-      margin-top: 72px;
+      margin-top: 34px;
     }
 
     .eyebrow {
@@ -174,7 +171,7 @@
     h1 {
       max-width: 570px;
       margin: 0;
-      font-size: clamp(36px, 6vw, 58px);
+      font-size: clamp(34px, 5vw, 48px);
       font-weight: 760;
       letter-spacing: -0.055em;
       line-height: 0.98;
@@ -182,18 +179,18 @@
 
     .hero-description {
       max-width: 590px;
-      margin: 22px 0 0;
-      color: rgba(255, 255, 255, 0.7);
+      margin: 14px 0 0;
+      color: rgba(255, 255, 255, 0.84);
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
     .hero-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 8px 22px;
-      margin-top: 30px;
-      color: rgba(255, 255, 255, 0.82);
+      margin-top: 20px;
+      color: rgba(255, 255, 255, 0.9);
       font-size: 13px;
       font-weight: 650;
     }
@@ -550,18 +547,23 @@
       }
 
       .hero {
-        padding: 22px 20px 26px;
+        padding: 18px 18px 20px;
         border-radius: 20px;
       }
 
       .hero::before {
-        top: -128px;
-        right: -132px;
+        top: -102px;
+        right: -98px;
+        width: 210px;
+        height: 210px;
+        border-width: 36px;
       }
 
       .hero::after {
-        right: 86px;
-        bottom: -104px;
+        right: 48px;
+        bottom: -82px;
+        width: 104px;
+        height: 104px;
       }
 
       .channel-link {
@@ -581,15 +583,34 @@
       }
 
       .hero-copy {
-        margin-top: 64px;
+        margin-top: 18px;
+      }
+
+      .eyebrow {
+        margin-bottom: 8px;
+        font-size: 11px;
+        letter-spacing: 0.12em;
       }
 
       h1 {
-        font-size: clamp(38px, 12vw, 50px);
+        font-size: clamp(30px, 8.5vw, 36px);
       }
 
       .hero-description {
+        margin-top: 10px;
         font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .hero-meta {
+        gap: 7px 16px;
+        margin-top: 16px;
+      }
+
+      .brand-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
       }
 
       .toolbar {
@@ -640,6 +661,21 @@
       }
     }
 
+    @media (max-width: 340px) {
+      .shell {
+        padding-right: 8px;
+        padding-left: 8px;
+      }
+
+      .hero {
+        padding: 16px 14px 18px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
@@ -655,7 +691,7 @@
     <header class="hero">
       <div class="brand-row">
         <a class="brand" href="https://t.me/pm_faq" target="_blank" rel="noopener noreferrer">
-          <span class="brand-mark">PM</span>
+          <img class="brand-avatar" src="channel-avatar.jpg" alt="" width="44" height="44" />
           <span>PM FAQ</span>
         </a>
         <a class="channel-link" href="https://t.me/pm_faq" target="_blank" rel="noopener noreferrer">
