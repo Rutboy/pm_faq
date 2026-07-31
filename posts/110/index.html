@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#172235" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="description" content="Vanity-метрики, или метрики тщеславия, красиво растут, но мало что решают: «всего регистраций», «всего скачиваний», «просмотры» без контекста, «лайки». Они: кумулятивны…" />
+  <link rel="canonical" href="https://rutboy.github.io/pm_faq/posts/110/" />
+  <link rel="icon" type="image/jpeg" href="../../channel-avatar.jpg" />
+  <link rel="stylesheet" href="../../assets/post.css" />
+  <link rel="prev" href="../109/" />
+  <link rel="next" href="../111/" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:site_name" content="PM FAQ" />
+  <meta property="og:title" content="Как избежать ловушек (vanity metrics)?" />
+  <meta property="og:description" content="Vanity-метрики, или метрики тщеславия, красиво растут, но мало что решают: «всего регистраций», «всего скачиваний», «просмотры» без контекста, «лайки». Они: кумулятивны…" />
+  <meta property="og:url" content="https://rutboy.github.io/pm_faq/posts/110/" />
+  <meta property="og:image" content="https://rutboy.github.io/pm_faq/channel-avatar.jpg" />
+  <meta property="article:published_time" content="2025-09-17T13:04:01+00:00" />
+  <meta property="article:modified_time" content="2026-07-31T00:00:00+00:00" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Как избежать ловушек (vanity metrics)?" />
+  <meta name="twitter:description" content="Vanity-метрики, или метрики тщеславия, красиво растут, но мало что решают: «всего регистраций», «всего скачиваний», «просмотры» без контекста, «лайки». Они: кумулятивны…" />
+  <meta name="twitter:image" content="https://rutboy.github.io/pm_faq/channel-avatar.jpg" />
+
+  <title>Как избежать ловушек (vanity metrics)? | PM FAQ</title>
+  <script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Как избежать ловушек (vanity metrics)?",
+      "description": "Vanity-метрики, или метрики тщеславия, красиво растут, но мало что решают: «всего регистраций», «всего скачиваний», «просмотры» без контекста, «лайки». Они: кумулятивны…",
+      "inLanguage": "ru-RU",
+      "datePublished": "2025-09-17T13:04:01+00:00",
+      "dateModified": "2026-07-31T00:00:00+00:00",
+      "mainEntityOfPage": "https://rutboy.github.io/pm_faq/posts/110/",
+      "image": "https://rutboy.github.io/pm_faq/channel-avatar.jpg",
+      "author": {
+            "@type": "Organization",
+            "name": "PM FAQ",
+            "url": "https://rutboy.github.io/pm_faq/"
+      },
+      "publisher": {
+            "@type": "Organization",
+            "name": "PM FAQ",
+            "url": "https://rutboy.github.io/pm_faq/",
+            "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://rutboy.github.io/pm_faq/channel-avatar.jpg"
+            }
+      },
+      "isPartOf": {
+            "@type": "CollectionPage",
+            "url": "https://rutboy.github.io/pm_faq/"
+      }
+}
+  </script>
+</head>
+<body>
+  <main class="post-shell">
+    <header class="site-header">
+      <a class="brand" href="../../" aria-label="PM FAQ — оглавление">
+        <img src="../../channel-avatar.jpg" alt="" width="42" height="42" />
+        <span>PM FAQ</span>
+      </a>
+      <a class="header-channel" href="https://t.me/pm_faq" target="_blank" rel="noopener noreferrer">
+        Канал в Telegram
+      </a>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <a href="../../">Оглавление</a>
+      <span class="separator" aria-hidden="true">/</span>
+      <span>Глава 6: Метрики и аналитика</span>
+      <span class="separator" aria-hidden="true">/</span>
+      <span>Работа с результатом</span>
+    </nav>
+
+    <article class="article-card">
+      <header class="article-header">
+        <p class="article-kicker">Метрики и аналитика · Работа с результатом</p>
+        <h1>Как избежать ловушек (vanity metrics)?</h1>
+        <p class="article-meta">
+          <span><time datetime="2025-09-17">17 сентября 2025</time></span>
+          <span>2 мин чтения</span>
+        </p>
+      </header>
+
+      <div class="article-body">
+        <p>Vanity-метрики, или метрики тщеславия, красиво растут, но мало что решают: «всего регистраций», «всего скачиваний», «просмотры» без контекста, «лайки». Они:</p>
+        <ul><li>кумулятивны (легко растут);</li><li>не нормированы (ни к чему не привязаны);</li><li>слабо связаны с ценностью и деньгами;</li><li>легко манипулируемы.</li></ul>
+        <p>Проще говоря, такие общие метрики вообще никак не отражают качество продукта и его удобство. В твоём продукте может быть бешеное MAU, но при этом все эти пользователи проводят в продукте меньше минуты и никогда не возвращаются. И какой смысл от большого MAU тогда?</p>
+        <h2>Принципы анти-vanity</h2>
+        <ul><li>Нормируй: per user / per session / per cohort / per exposure (на контакт);</li><li>Привязывай к поведению: activation, retention, frequency (частота), depth (глубина), conversion (конверсия);</li><li>Следи за качеством: ARPU или ARPPU, LTV или CAC, churn (отток), payback (окупаемость), margin (маржа);</li><li>Ставь ограничения: retention, отказоустойчивость, количество жалоб, возвраты средств;</li><li>Избегай усреднений в тяжёлых хвостах: медиана и P75 (75-й процентиль) часто информативнее среднего.</li></ul>
+        <h2>Что использовать вместо vanity-метрик?</h2>
+        <table><thead><tr>
+        <th>Vanity-метрика</th>
+        <th>Что использовать вместо</th>
+        </tr></thead><tbody>
+        <tr>
+        <td>Зарегистрировано всего</td>
+        <td>Activation D1/D7, Процент завершения онбординга, Time-to-Value</td>
+        </tr>
+        <tr>
+        <td>Просмотры страниц</td>
+        <td>Конверсия по воронке, CTR в ключевое действие, Количество страниц за сессию</td>
+        </tr>
+        <tr>
+        <td>Установки</td>
+        <td>Доля запусков приложения после установки, Retention D1/D7, CAC</td>
+        </tr>
+        <tr>
+        <td>Лайки/реакции</td>
+        <td>Количество активных авторов, количество популярных публикаций</td>
+        </tr>
+        <tr>
+        <td>MAU в целом</td>
+        <td>DAU/MAU активной аудитории, WAU на когорту, доля вернувшихся от общего MAU</td>
+        </tr>
+        </tbody></table>
+        <h2>Мини-чеклист</h2>
+        <h3>Перед стартом эксперимента</h3>
+        <ul><li>Ожидаемый результат сформулирован по шаблону, понятен сегмент/сценарий;</li><li>Корзина метрик: ключевая + влияния + ограничения, единицы измерения нормированы;</li><li>Гипотезы и риски записаны, метод измерения согласован (A/B, квази и т. д.);</li><li>Ты уверен в источнике данных, распределение групп эксперимента контролируется.</li></ul>
+        <h3>После получения результата</h3>
+        <ul><li>Эффект: абсолютный и относительный, с доверительным интервалом;</li><li>Валидация причинности и контроль фоновых факторов (сезонность, источники привлечения, релизы в продукте);</li><li>Сегментация: где эффект концентрируется / исчезает;</li><li>Метрики ограничений в норме, внешних издержек нет;</li><li>Решение и следующий шаг: раскат / итерация / откат; обнови приоритеты и карту метрик;</li><li>Зафиксируй результаты эксперимента: контекст → гипотеза → метод → результат → решение → что делать иначе в следующий раз.</li></ul>
+      </div>
+
+      <section class="source-card" aria-labelledby="source-title">
+        <div class="source-card-inner">
+          <h2 id="source-title">Оригинал в Telegram</h2>
+          <p>Исходная публикация сохранена для контекста и обсуждения в канале.</p>
+          <div class="source-links">
+            <a href="https://t.me/pm_faq/110" target="_blank" rel="noopener noreferrer">Открыть публикацию</a>
+          </div>
+        </div>
+      </section>
+    </article>
+
+    <nav class="post-navigation" aria-label="Навигация между материалами">
+      <a href="../109/" rel="prev"><small>Предыдущий материал</small><strong>Что делать, если данные неочевидны?</strong></a>
+      <a href="../111/" rel="next"><small>Следующий материал</small><strong>Итог шестой главы</strong></a>
+    </nav>
+
+    <footer class="page-footer">
+      <span>PM FAQ · Честно о работе продуктового менеджера</span>
+      <a href="../../">Вернуться к оглавлению</a>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#172235" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="description" content="Тут в вопросе небольшой обман. Под интерпретацией результата на самом деле подразумевается валидация данных. Если ты уверен в точности полученных метрик и в их…" />
+  <link rel="canonical" href="https://rutboy.github.io/pm_faq/posts/108/" />
+  <link rel="icon" type="image/jpeg" href="../../channel-avatar.jpg" />
+  <link rel="stylesheet" href="../../assets/post.css" />
+  <link rel="prev" href="../107/" />
+  <link rel="next" href="../109/" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:site_name" content="PM FAQ" />
+  <meta property="og:title" content="Как интерпретировать результаты?" />
+  <meta property="og:description" content="Тут в вопросе небольшой обман. Под интерпретацией результата на самом деле подразумевается валидация данных. Если ты уверен в точности полученных метрик и в их…" />
+  <meta property="og:url" content="https://rutboy.github.io/pm_faq/posts/108/" />
+  <meta property="og:image" content="https://rutboy.github.io/pm_faq/channel-avatar.jpg" />
+  <meta property="article:published_time" content="2025-09-13T13:05:03+00:00" />
+  <meta property="article:modified_time" content="2026-07-31T00:00:00+00:00" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Как интерпретировать результаты?" />
+  <meta name="twitter:description" content="Тут в вопросе небольшой обман. Под интерпретацией результата на самом деле подразумевается валидация данных. Если ты уверен в точности полученных метрик и в их…" />
+  <meta name="twitter:image" content="https://rutboy.github.io/pm_faq/channel-avatar.jpg" />
+
+  <title>Как интерпретировать результаты? | PM FAQ</title>
+  <script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Как интерпретировать результаты?",
+      "description": "Тут в вопросе небольшой обман. Под интерпретацией результата на самом деле подразумевается валидация данных. Если ты уверен в точности полученных метрик и в их…",
+      "inLanguage": "ru-RU",
+      "datePublished": "2025-09-13T13:05:03+00:00",
+      "dateModified": "2026-07-31T00:00:00+00:00",
+      "mainEntityOfPage": "https://rutboy.github.io/pm_faq/posts/108/",
+      "image": "https://rutboy.github.io/pm_faq/channel-avatar.jpg",
+      "author": {
+            "@type": "Organization",
+            "name": "PM FAQ",
+            "url": "https://rutboy.github.io/pm_faq/"
+      },
+      "publisher": {
+            "@type": "Organization",
+            "name": "PM FAQ",
+            "url": "https://rutboy.github.io/pm_faq/",
+            "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://rutboy.github.io/pm_faq/channel-avatar.jpg"
+            }
+      },
+      "isPartOf": {
+            "@type": "CollectionPage",
+            "url": "https://rutboy.github.io/pm_faq/"
+      }
+}
+  </script>
+</head>
+<body>
+  <main class="post-shell">
+    <header class="site-header">
+      <a class="brand" href="../../" aria-label="PM FAQ — оглавление">
+        <img src="../../channel-avatar.jpg" alt="" width="42" height="42" />
+        <span>PM FAQ</span>
+      </a>
+      <a class="header-channel" href="https://t.me/pm_faq" target="_blank" rel="noopener noreferrer">
+        Канал в Telegram
+      </a>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <a href="../../">Оглавление</a>
+      <span class="separator" aria-hidden="true">/</span>
+      <span>Глава 6: Метрики и аналитика</span>
+      <span class="separator" aria-hidden="true">/</span>
+      <span>Работа с результатом</span>
+    </nav>
+
+    <article class="article-card">
+      <header class="article-header">
+        <p class="article-kicker">Метрики и аналитика · Работа с результатом</p>
+        <h1>Как интерпретировать результаты?</h1>
+        <p class="article-meta">
+          <span><time datetime="2025-09-13">13 сентября 2025</time></span>
+          <span>2 мин чтения</span>
+        </p>
+      </header>
+
+      <div class="article-body">
+        <p>Тут в вопросе небольшой обман. Под интерпретацией результата на самом деле подразумевается валидация данных. Если ты уверен в точности полученных метрик и в их правдивости, то сможешь сделать правильные выводы. Иду на этот обман осознанно, чтобы донести мысль: не делай выводы на данных, в достоверности которых не убеждён.</p>
+        <p>Правдивая формулировка вопроса скорее «Какими данные должны быть, чтобы правильно интерпретировать результат». Именно на этот вопрос я и отвечаю ниже.</p>
+        <h2>Пять вопросов к любому результату</h2>
+        <p>Ниже перечислены важные вопросы к результату, а в скобках указано, что нужно проверить, чтобы убедиться, что всё в порядке.</p>
+        <ol><li>Измерили ли мы то, что хотели? (валидность метрики, корректность ивентов);</li><li>Насколько велик эффект? (абсолютный прирост, относительный %, effect size);</li><li>Данные надёжны? (доверительные интервалы, статистическая мощность, риск ошибки; Sample Ratio Mismatch исключён?);</li><li>Нет ли предвзятости и противоречий в данных? (есть ли честный контроль; не перепутали сезонность/каналы/миграции?);</li><li>Учтены внешние эффекты? (не «съели» ли другие показатели: монетизация, стабильность, NPS; нет ли сезонности?).</li></ol>
+        <p>Основная сложность в том, что без достаточного опыта в подсчётах крайне сложно ответить на любой из этих вопросов. Поэтому и существует столько разновидностей аналитиков. Работа с данными и интерпретация результатов — сложная и очень важная профессия.</p>
+        <h2>Быстрый чеклист для проверки данных</h2>
+        <ul><li>Проверь Sample Ratio Mismatch: доли трафика в группах соответствуют плану? Они распределены как задумано? Например, 50/50 для A/B-теста;</li><li>Event-аудит: нет ли потерянных/дублированных событий? Уверен в источнике данных?</li><li>Не навреди: метрики ограничений в норме?</li><li>Переобучение/новизна: эффект не угас через 2–3 недели? Посмотри на ключевую метрику в динамике за период эксперимента и после его завершения.</li></ul>
+        <h2>Сегментация</h2>
+        <p>Смотреть на результат «в среднем по больнице» категорически нельзя. Метрики в общем смысле могут вырасти, но при этом «обвалиться» по важным сегментам.</p>
+        <p>Обязательно посмотри, как отреагировали на изменение новые и старые пользователи. Может оказаться, что метрики для текущей базы сильно просели и не вернулись в прежнее состояние. Это может привести к оттоку действующих пользователей. Проседание метрик у текущих пользователей — нормальное явление на старте. Не делай выводы до завершения эксперимента.</p>
+        <p>Какие сегменты можно выделить дополнительно:</p>
+        <ul><li>по источникам трафика;</li><li>платящие / неплатящие;</li><li>по устройствам / операционным системам;</li><li>по географии (страны, регионы, города).</li></ul>
+        <p>Все эти сегменты могут по-разному реагировать на одно и то же изменение в продукте. Всем, конечно, не угодишь, но для правильных выводов нужно понимать, как ты повлиял на разные группы пользователей.</p>
+        <h2>Unit-экономика</h2>
+        <p>Совсем хорошо посчитать unit-экономику для каждого сегмента. Unit-экономика может «зарубить» позитивное изменение ключевой метрики, потому что вдруг окажется, что доходы упали по важным или вообще по всем сегментам.</p>
+        <h2>Итого</h2>
+        <p>Чтобы сделать правильно интерпретировать результаты:</p>
+        <ol><li>убедись в достоверности данных;</li><li>делай выводы по каждому сегменту отдельно;</li><li>определи влияние на финансовые метрики.</li></ol>
+      </div>
+
+      <section class="source-card" aria-labelledby="source-title">
+        <div class="source-card-inner">
+          <h2 id="source-title">Оригинал в Telegram</h2>
+          <p>Исходная публикация сохранена для контекста и обсуждения в канале.</p>
+          <div class="source-links">
+            <a href="https://t.me/pm_faq/108" target="_blank" rel="noopener noreferrer">Открыть публикацию</a>
+          </div>
+        </div>
+      </section>
+    </article>
+
+    <nav class="post-navigation" aria-label="Навигация между материалами">
+      <a href="../107/" rel="prev"><small>Предыдущий материал</small><strong>Как формулировать ожидаемый результат?</strong></a>
+      <a href="../109/" rel="next"><small>Следующий материал</small><strong>Что делать, если данные неочевидны?</strong></a>
+    </nav>
+
+    <footer class="page-footer">
+      <span>PM FAQ · Честно о работе продуктового менеджера</span>
+      <a href="../../">Вернуться к оглавлению</a>
+    </footer>
+  </main>
+</body>
+</html>

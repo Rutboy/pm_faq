@@ -35,7 +35,7 @@
   <meta name="twitter:image" content="https://rutboy.github.io/pm_faq/channel-avatar.jpg" />
   <meta name="twitter:image:alt" content="Аватар канала PM FAQ" />
 
-  <title>PM FAQ — ответы для продакт-менеджеров | Оглавление</title>
+  <title>PM FAQ — база знаний для продакт-менеджеров</title>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -44,7 +44,8 @@
           "@type": "Organization",
           "@id": "https://rutboy.github.io/pm_faq/#publisher",
           "name": "PM FAQ",
-          "url": "https://t.me/pm_faq",
+          "url": "https://rutboy.github.io/pm_faq/",
+          "sameAs": "https://t.me/pm_faq",
           "logo": {
             "@type": "ImageObject",
             "url": "https://rutboy.github.io/pm_faq/channel-avatar.jpg",
@@ -108,7 +109,7 @@
       color-scheme: light;
       --ink: #172235;
       --ink-soft: #334057;
-      --muted: #6c7482;
+      --muted: #626b79;
       --line: #dfe2e7;
       --line-strong: #c8cdd5;
       --paper: #ffffff;
@@ -230,6 +231,7 @@
 
     .channel-link {
       display: inline-flex;
+      min-height: 44px;
       align-items: center;
       gap: 7px;
       padding: 8px 12px;
@@ -348,7 +350,7 @@
     .search input {
       width: 100%;
       height: 46px;
-      padding: 0 42px 0 42px;
+      padding: 0 50px 0 42px;
       color: var(--ink);
       background: var(--canvas);
       border: 1px solid transparent;
@@ -375,10 +377,10 @@
 
     .search-clear {
       position: absolute;
-      right: 8px;
+      right: 1px;
       display: none;
-      width: 30px;
-      height: 30px;
+      width: 44px;
+      height: 44px;
       padding: 0;
       color: var(--muted);
       background: transparent;
@@ -585,7 +587,7 @@
 
     .post-link:hover svg {
       color: var(--blue);
-      transform: translate(2px, -2px);
+      transform: translateX(3px);
     }
 
     .empty-state {
@@ -661,8 +663,8 @@
       }
 
       .channel-link {
-        width: 36px;
-        height: 36px;
+        width: 44px;
+        height: 44px;
         justify-content: center;
         padding: 0;
         border-radius: 10px;
@@ -784,7 +786,7 @@
   <main class="shell">
     <header class="hero">
       <div class="brand-row">
-        <a class="brand" href="https://t.me/pm_faq" target="_blank" rel="noopener noreferrer">
+        <a class="brand" href="./" aria-label="PM FAQ — главная">
           <img class="brand-avatar" src="channel-avatar.jpg" alt="" width="44" height="44" />
           <span>PM FAQ</span>
         </a>
@@ -798,23 +800,23 @@
 
       <div class="hero-copy">
         <p class="eyebrow">Ответы для продакт-менеджеров</p>
-        <h1>Оглавление канала</h1>
+        <h1>База знаний PM FAQ</h1>
         <p class="hero-description">
-          Практические разборы продуктовых вопросов — от входа в профессию
+          Читайте практические разборы прямо на сайте — от входа в профессию
           до аналитики, работы с командой и принятия решений.
         </p>
       </div>
 
       <div class="hero-meta" aria-label="Статистика оглавления">
         <span id="chapter-stat">7 глав</span>
-        <span id="post-stat">108 материалов</span>
+        <span id="post-stat">109 материалов</span>
       </div>
     </header>
 
     <section class="toolbar" aria-labelledby="toc-title">
       <div class="toolbar-copy">
         <h2 id="toc-title">Все темы</h2>
-        <p id="search-status">Выберите главу или найдите нужный вопрос</p>
+        <p id="search-status" aria-live="polite" aria-atomic="true">Выберите главу или найдите нужный вопрос</p>
       </div>
 
       <div class="search">
@@ -835,7 +837,7 @@
 
     <div class="toc" id="toc"></div>
 
-    <div class="empty-state" id="empty-state" role="status">
+    <div class="empty-state" id="empty-state">
       <strong>Ничего не найдено</strong>
       Попробуйте изменить запрос или использовать другое слово.
     </div>
@@ -848,7 +850,7 @@
 
   <script>
     const chevronSVG = `<svg class="chevron" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="m7 10 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-    const arrowSVG = `<svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    const arrowSVG = `<svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
     const tocData = [
       {
@@ -859,47 +861,47 @@
             title: "Роль PM в команде",
             id: "sub1_1",
             posts: [
-              { title: "Какую ценность приносит продуктовый менеджер?", link: "https://t.me/pm_faq/6" },
-              { title: "Чем product-менеджер отличается от project-менеджера, тимлида или бизнес-аналитика?", link: "https://t.me/pm_faq/9" },
-              { title: "В каких ситуациях PM должен взять на себя инициативу, а когда — отойти в сторону?", link: "https://t.me/pm_faq/10" },
-              { title: "Как PM взаимодействует с дизайнерами, разработчиками и бизнесом?", link: "https://t.me/pm_faq/11" },
-              { title: "Что будет с командой, если нет хорошего PM?", link: "https://t.me/pm_faq/12" }
+              { id: 6, title: "Какую ценность приносит продуктовый менеджер?", href: "posts/6/", telegram: ["https://t.me/pm_faq/6"] },
+              { id: 9, title: "Чем product-менеджер отличается от project-менеджера, тимлида или бизнес-аналитика?", href: "posts/9/", telegram: ["https://t.me/pm_faq/9"] },
+              { id: 10, title: "В каких ситуациях PM должен взять на себя инициативу, а когда — отойти в сторону?", href: "posts/10/", telegram: ["https://t.me/pm_faq/10"] },
+              { id: 11, title: "Как PM взаимодействует с дизайнерами, разработчиками и бизнесом?", href: "posts/11/", telegram: ["https://t.me/pm_faq/11"] },
+              { id: 12, title: "Что будет с командой, если нет хорошего PM?", href: "posts/12/", telegram: ["https://t.me/pm_faq/12"] }
             ]
           },
           {
             title: "Типы продуктовых менеджеров",
             id: "sub1_2",
             posts: [
-              { title: "Какие бывают роли и специализации у продуктовых менеджеров?", link: "https://t.me/pm_faq/13" },
-              { title: "Как выбрать направление, если только начинаешь карьеру?", link: "https://t.me/pm_faq/15" },
-              { title: "Может ли один человек совмещать сразу несколько продуктовых ролей?", link: "https://t.me/pm_faq/16" }
+              { id: 13, title: "Какие бывают роли и специализации у продуктовых менеджеров?", href: "posts/13/", telegram: ["https://t.me/pm_faq/13", "https://t.me/pm_faq/14"] },
+              { id: 15, title: "Как выбрать направление, если только начинаешь карьеру?", href: "posts/15/", telegram: ["https://t.me/pm_faq/15"] },
+              { id: 16, title: "Может ли один человек совмещать сразу несколько продуктовых ролей?", href: "posts/16/", telegram: ["https://t.me/pm_faq/16"] }
             ]
           },
           {
             title: "Мифы о профессии",
             id: "sub1_3",
             posts: [
-              { title: "Почему существует мнение, что PM ничего не делает?", link: "https://t.me/pm_faq/17" },
-              { title: "Какие распространённые заблуждения мешают новичкам?", link: "https://t.me/pm_faq/18" },
-              { title: "Чем на самом деле занимается PM в течение рабочего дня?", link: "https://t.me/pm_faq/20" }
+              { id: 17, title: "Почему существует мнение, что PM ничего не делает?", href: "posts/17/", telegram: ["https://t.me/pm_faq/17"] },
+              { id: 18, title: "Какие распространённые заблуждения мешают новичкам?", href: "posts/18/", telegram: ["https://t.me/pm_faq/18", "https://t.me/pm_faq/19"] },
+              { id: 20, title: "Чем на самом деле занимается PM в течение рабочего дня?", href: "posts/20/", telegram: ["https://t.me/pm_faq/20"] }
             ]
           },
           {
             title: "Портрет сильного PM",
             id: "sub1_4",
             posts: [
-              { title: "Какими качествами должен обладать хороший PM?", link: "https://t.me/pm_faq/21" },
-              { title: "Можно ли развить эмпатию, системность и продуктовое мышление?", link: "https://t.me/pm_faq/23" },
-              { title: "Что делает PM, когда не знает ответа?", link: "https://t.me/pm_faq/24" },
-              { title: "Как отличить сильного PM от просто активного?", link: "https://t.me/pm_faq/25" },
-              { title: "Какие ошибки чаще всего совершают начинающие PM и как их избежать?", link: "https://t.me/pm_faq/26" }
+              { id: 21, title: "Какими качествами должен обладать хороший PM?", href: "posts/21/", telegram: ["https://t.me/pm_faq/21"] },
+              { id: 23, title: "Можно ли развить эмпатию, системность и продуктовое мышление?", href: "posts/23/", telegram: ["https://t.me/pm_faq/23"] },
+              { id: 24, title: "Что делает PM, когда не знает ответа?", href: "posts/24/", telegram: ["https://t.me/pm_faq/24"] },
+              { id: 25, title: "Как отличить сильного PM от просто активного?", href: "posts/25/", telegram: ["https://t.me/pm_faq/25"] },
+              { id: 26, title: "Какие ошибки чаще всего совершают начинающие PM и как их избежать?", href: "posts/26/", telegram: ["https://t.me/pm_faq/26"] }
             ]
           },
           {
             title: "Итог первой главы",
             id: "sub1_5",
             posts: [
-              { title: "Итоги", link: "https://t.me/pm_faq/27" }
+              { id: 27, title: "Итог первой главы", href: "posts/27/", telegram: ["https://t.me/pm_faq/27"] }
             ]
           }
         ]
@@ -912,47 +914,47 @@
             title: "Образование",
             id: "sub2_1",
             posts: [
-              { title: "Насколько важно профильное образование для начала карьеры PM?", link: "https://t.me/pm_faq/29" },
-              { title: "Из какой профессии можно стать PM?", link: "https://t.me/pm_faq/30" },
-              { title: "Какие курсы и книги полезны?", link: "https://t.me/pm_faq/31" },
-              { title: "Какие навыки можно прокачать самостоятельно?", link: "https://t.me/pm_faq/32" }
+              { id: 29, title: "Насколько важно профильное образование для начала карьеры PM?", href: "posts/29/", telegram: ["https://t.me/pm_faq/29"] },
+              { id: 30, title: "Из какой профессии можно стать PM?", href: "posts/30/", telegram: ["https://t.me/pm_faq/30"] },
+              { id: 31, title: "Какие курсы и книги полезны?", href: "posts/31/", telegram: ["https://t.me/pm_faq/31"] },
+              { id: 32, title: "Какие навыки можно прокачать самостоятельно?", href: "posts/32/", telegram: ["https://t.me/pm_faq/32"] }
             ]
           },
           {
             title: "Твой первый опыт",
             id: "sub2_2",
             posts: [
-              { title: "Где и как искать возможности для первых проектов?", link: "https://t.me/pm_faq/33" },
-              { title: "Какой опыт можно трансформировать в продуктовый?", link: "https://t.me/pm_faq/34" },
-              { title: "Как запустить свой проект?", link: "https://t.me/pm_faq/35" },
-              { title: "Как документировать результаты, чтобы они впечатлили работодателей?", link: "https://t.me/pm_faq/36" }
+              { id: 33, title: "Где и как искать возможности для первых проектов?", href: "posts/33/", telegram: ["https://t.me/pm_faq/33"] },
+              { id: 34, title: "Какой опыт можно трансформировать в продуктовый?", href: "posts/34/", telegram: ["https://t.me/pm_faq/34"] },
+              { id: 35, title: "Как запустить свой проект?", href: "posts/35/", telegram: ["https://t.me/pm_faq/35"] },
+              { id: 36, title: "Как документировать результаты, чтобы они впечатлили работодателей?", href: "posts/36/", telegram: ["https://t.me/pm_faq/36"] }
             ]
           },
           {
             title: "Портфолио и резюме",
             id: "sub2_3",
             posts: [
-              { title: "Как составить и что стоит включить в резюме новичку?", link: "https://t.me/pm_faq/37" },
-              { title: "Как описывать свой вклад и пользу?", link: "https://t.me/pm_faq/38" },
-              { title: "Какие формулировки избегать в резюме?", link: "https://t.me/pm_faq/39" },
-              { title: "Как адаптировать резюме под конкретную вакансию?", link: "https://t.me/pm_faq/40" }
+              { id: 37, title: "Как составить и что стоит включить в резюме новичку?", href: "posts/37/", telegram: ["https://t.me/pm_faq/37"] },
+              { id: 38, title: "Как описывать свой вклад и пользу?", href: "posts/38/", telegram: ["https://t.me/pm_faq/38"] },
+              { id: 39, title: "Каких формулировок избегать в резюме?", href: "posts/39/", telegram: ["https://t.me/pm_faq/39"] },
+              { id: 40, title: "Как адаптировать резюме под конкретную вакансию?", href: "posts/40/", telegram: ["https://t.me/pm_faq/40"] }
             ]
           },
           {
             title: "Собеседования и кейсы",
             id: "sub2_4",
             posts: [
-              { title: "Какие вопросы обычно задают на интервью для PM?", link: "https://t.me/pm_faq/41" },
-              { title: "Как готовиться к разбору кейсов и задач?", link: "https://t.me/pm_faq/42" },
-              { title: "Как подготовить примеры успешных решений?", link: "https://t.me/pm_faq/43" },
-              { title: "Какие soft skills проверяют чаще всего?", link: "https://t.me/pm_faq/44" }
+              { id: 41, title: "Какие вопросы обычно задают на интервью для PM?", href: "posts/41/", telegram: ["https://t.me/pm_faq/41"] },
+              { id: 42, title: "Как готовиться к разбору кейсов и задач?", href: "posts/42/", telegram: ["https://t.me/pm_faq/42"] },
+              { id: 43, title: "Как подготовить примеры успешных решений?", href: "posts/43/", telegram: ["https://t.me/pm_faq/43"] },
+              { id: 44, title: "Какие soft skills проверяют чаще всего?", href: "posts/44/", telegram: ["https://t.me/pm_faq/44"] }
             ]
           },
           {
             title: "Итог второй главы",
             id: "sub2_5",
             posts: [
-              { title: "Итог", link: "https://t.me/pm_faq/45" },
+              { id: 45, title: "Итог второй главы", href: "posts/45/", telegram: ["https://t.me/pm_faq/45"] },
             ]
           }
         ]
@@ -965,53 +967,53 @@
             title: "Продуктовое мышление",
             id: "sub3_1",
             posts: [
-              { title: "Какие методы помогают формировать продуктовое мышление?", link: "https://t.me/pm_faq/46" },
-              { title: "Как определить ценность продукта для пользователя?", link: "https://t.me/pm_faq/47" },
-              { title: "Как формулировать ценностное предложение продукта?", link: "https://t.me/pm_faq/48" },
-              { title: "Какие вопросы помогают выявить ключевые потребности пользователей?", link: "https://t.me/pm_faq/49" },
-              { title: "Как решать конфликт ценностей между бизнесом и пользователем?", link: "https://t.me/pm_faq/50" }
+              { id: 46, title: "Какие методы помогают формировать продуктовое мышление?", href: "posts/46/", telegram: ["https://t.me/pm_faq/46"] },
+              { id: 47, title: "Как определить ценность продукта для пользователя?", href: "posts/47/", telegram: ["https://t.me/pm_faq/47"] },
+              { id: 48, title: "Как формулировать ценностное предложение продукта?", href: "posts/48/", telegram: ["https://t.me/pm_faq/48"] },
+              { id: 49, title: "Какие вопросы помогают выявить ключевые потребности пользователей?", href: "posts/49/", telegram: ["https://t.me/pm_faq/49"] },
+              { id: 50, title: "Как решать конфликт ценностей между бизнесом и пользователем?", href: "posts/50/", telegram: ["https://t.me/pm_faq/50"] }
             ]
           },
           {
             title: "Системное мышление",
             id: "sub3_2",
             posts: [
-              { title: "Как выявлять связи и зависимости в продукте?", link: "https://t.me/pm_faq/51" },
-              { title: "Какие инструменты помогают смотреть на продукт в целом?", link: "https://t.me/pm_faq/52" },
-              { title: "Как не бояться «не знать»?", link: "https://t.me/pm_faq/54" },
-              { title: "Как принимать решения в условиях неопределённости?", link: "https://t.me/pm_faq/55" }
+              { id: 51, title: "Как выявлять связи и зависимости в продукте?", href: "posts/51/", telegram: ["https://t.me/pm_faq/51"] },
+              { id: 52, title: "Какие инструменты помогают смотреть на продукт в целом?", href: "posts/52/", telegram: ["https://t.me/pm_faq/52", "https://t.me/pm_faq/53"] },
+              { id: 54, title: "Как не бояться «не знать»?", href: "posts/54/", telegram: ["https://t.me/pm_faq/54"] },
+              { id: 55, title: "Как принимать решения в условиях неопределённости?", href: "posts/55/", telegram: ["https://t.me/pm_faq/55"] }
             ]
           },
           {
-            title: "Работа с неопределенностью",
+            title: "Работа с неопределённостью",
             id: "sub3_3",
             posts: [
-              { title: "Откуда взять чёткие требования?", link: "https://t.me/pm_faq/56" },
-              { title: "Как принимать решения при ограниченных данных?", link: "https://t.me/pm_faq/57" },
-              { title: "Какие техники помогают структурировать неизвестное?", link: "https://t.me/pm_faq/58" }
+              { id: 56, title: "Откуда взять чёткие требования?", href: "posts/56/", telegram: ["https://t.me/pm_faq/56"] },
+              { id: 57, title: "Как принимать решения при ограниченных данных?", href: "posts/57/", telegram: ["https://t.me/pm_faq/57"] },
+              { id: 58, title: "Какие техники помогают структурировать неизвестное?", href: "posts/58/", telegram: ["https://t.me/pm_faq/58"] }
             ]
           },
           {
             title: "Эмпатия и коммуникация",
             id: "sub3_4",
             posts: [
-              { title: "Как развивать эмпатию к пользователям и команде?", link: "https://t.me/pm_faq/59" },
-              { title: "Какие приёмы помогают улучшить коммуникацию?", link: "https://t.me/pm_faq/60" },
-              { title: "Как распознавать скрытые потребности пользователей?", link: "https://t.me/pm_faq/61" }
+              { id: 59, title: "Как развивать эмпатию к пользователям и команде?", href: "posts/59/", telegram: ["https://t.me/pm_faq/59"] },
+              { id: 60, title: "Какие приёмы помогают улучшить коммуникацию?", href: "posts/60/", telegram: ["https://t.me/pm_faq/60"] },
+              { id: 61, title: "Как распознавать скрытые потребности пользователей?", href: "posts/61/", telegram: ["https://t.me/pm_faq/61"] }
             ]
           },
           {
             title: "Итог третьей главы",
             id: "sub3_5",
             posts: [
-              { title: "Итоги", link: "https://t.me/pm_faq/62" }
+              { id: 62, title: "Итог третьей главы", href: "posts/62/", telegram: ["https://t.me/pm_faq/62"] }
             ]
           },
           {
-            title: "Extra",
+            title: "Дополнительные материалы",
             id: "sub3_6",
             posts: [
-              { title: "«Яндекс Что-то", link: "https://t.me/pm_faq/129" }
+              { id: 129, title: "Яндекс Что-то", href: "posts/129/", telegram: ["https://t.me/pm_faq/129"] }
             ]
           }
         ]
@@ -1024,46 +1026,46 @@
             title: "Исследования: как, зачем и когда",
             id: "sub4_1",
             posts: [
-              { title: "Когда стоит проводить пользовательские исследования?", link: "https://t.me/pm_faq/63" },
-              { title: "Какие методы исследований наиболее эффективны?", link: "https://t.me/pm_faq/64" },
-              { title: "Как формулировать хорошие вопросы для интервью?", link: "https://t.me/pm_faq/65" },
-              { title: "Как анализировать инсайты?", link: "https://t.me/pm_faq/66" }
+              { id: 63, title: "Когда стоит проводить пользовательские исследования?", href: "posts/63/", telegram: ["https://t.me/pm_faq/63"] },
+              { id: 64, title: "Какие методы исследований наиболее эффективны?", href: "posts/64/", telegram: ["https://t.me/pm_faq/64"] },
+              { id: 65, title: "Как формулировать хорошие вопросы для интервью?", href: "posts/65/", telegram: ["https://t.me/pm_faq/65"] },
+              { id: 66, title: "Как анализировать инсайты?", href: "posts/66/", telegram: ["https://t.me/pm_faq/66"] }
             ]
           },
           {
             title: "Генерация гипотез",
             id: "sub4_2",
             posts: [
-              { title: "Как не влюбляться в идеи?", link: "https://t.me/pm_faq/67" },
-              { title: "Где брать идеи для новых фич?", link: "https://t.me/pm_faq/68" },
-              { title: "Как проводить ideation-сессии?", link: "https://t.me/pm_faq/69" },
-              { title: "Как фильтровать гипотезы перед тестированием?", link: "https://t.me/pm_faq/70" }
+              { id: 67, title: "Как не влюбляться в идеи?", href: "posts/67/", telegram: ["https://t.me/pm_faq/67"] },
+              { id: 68, title: "Где брать идеи для новых фич?", href: "posts/68/", telegram: ["https://t.me/pm_faq/68"] },
+              { id: 69, title: "Как проводить ideation-сессии?", href: "posts/69/", telegram: ["https://t.me/pm_faq/69"] },
+              { id: 70, title: "Как фильтровать гипотезы перед тестированием?", href: "posts/70/", telegram: ["https://t.me/pm_faq/70"] }
             ]
           },
           {
             title: "Проверка гипотез",
             id: "sub4_3",
             posts: [
-              { title: "Как быстро тестировать гипотезы?", link: "https://t.me/pm_faq/71" },
-              { title: "Что включить в минимально жизнеспособный продукт?", link: "https://t.me/pm_faq/72" },
-              { title: "Чем MVP отличается от MLP?", link: "https://t.me/pm_faq/73" },
-              { title: "Какие метрики использовать при проверке? Как понять, что гипотеза прошла?", link: "https://t.me/pm_faq/74" }
+              { id: 71, title: "Как быстро тестировать гипотезы?", href: "posts/71/", telegram: ["https://t.me/pm_faq/71"] },
+              { id: 72, title: "Что включить в минимально жизнеспособный продукт?", href: "posts/72/", telegram: ["https://t.me/pm_faq/72"] },
+              { id: 73, title: "Чем MVP отличается от MLP?", href: "posts/73/", telegram: ["https://t.me/pm_faq/73"] },
+              { id: 74, title: "Какие метрики использовать при проверке? Как понять, что гипотеза прошла?", href: "posts/74/", telegram: ["https://t.me/pm_faq/74"] }
             ]
           },
           {
-            title: "Портрет сильного PM",
+            title: "Обратная связь и улучшения",
             id: "sub4_4",
             posts: [
-              { title: "Как собирать и обрабатывать фидбек?", link: "https://t.me/pm_faq/75" },
-              { title: "Как балансировать между запросами и стратегией продукта?", link: "https://t.me/pm_faq/76" },
-              { title: "Как не утонуть в фидбеке?", link: "https://t.me/pm_faq/77" }
+              { id: 75, title: "Как собирать и обрабатывать фидбек?", href: "posts/75/", telegram: ["https://t.me/pm_faq/75"] },
+              { id: 76, title: "Как балансировать между запросами и стратегией продукта?", href: "posts/76/", telegram: ["https://t.me/pm_faq/76"] },
+              { id: 77, title: "Как не утонуть в фидбеке?", href: "posts/77/", telegram: ["https://t.me/pm_faq/77"] }
             ]
           },
           {
-            title: "Итог четвертой главы",
+            title: "Итог четвёртой главы",
             id: "sub4_5",
             posts: [
-              { title: "Итоги", link: "https://t.me/pm_faq/78" }
+              { id: 78, title: "Итог четвёртой главы", href: "posts/78/", telegram: ["https://t.me/pm_faq/78"] }
             ]
           }
         ]
@@ -1076,59 +1078,59 @@
             title: "Лидерство",
             id: "sub5_1",
             posts: [
-              { title: "Как влиять без прямого подчинения?", link: "https://t.me/pm_faq/80" },
-              { title: "Как развивать лидерство?", link: "https://t.me/pm_faq/81" },
-              { title: "Что такое микроменеджмент и как его избежать?", link: "https://t.me/pm_faq/82" }
+              { id: 80, title: "Как влиять без прямого подчинения?", href: "posts/80/", telegram: ["https://t.me/pm_faq/80"] },
+              { id: 81, title: "Как развивать лидерство?", href: "posts/81/", telegram: ["https://t.me/pm_faq/81"] },
+              { id: 82, title: "Что такое микроменеджмент и как его избежать?", href: "posts/82/", telegram: ["https://t.me/pm_faq/82"] }
             ]
           },
           {
             title: "Командная динамика и роли",
             id: "sub5_2",
             posts: [
-              { title: "Как выстраивать рабочий процесс?", link: "https://t.me/pm_faq/83" },
-              { title: "Как распределяются роли и зоны ответственности в продуктовой команде?", link: "https://t.me/pm_faq/84" },
-              { title: "Чем вреден водопадный подход в гибких командах?", link: "https://t.me/pm_faq/85" },
-              { title: "«Бутылочное горлышко» и «фактор автобуса»: что это и как их избегать?", link: "https://t.me/pm_faq/86" }
+              { id: 83, title: "Как выстраивать рабочий процесс?", href: "posts/83/", telegram: ["https://t.me/pm_faq/83"] },
+              { id: 84, title: "Как распределяются роли и зоны ответственности в продуктовой команде?", href: "posts/84/", telegram: ["https://t.me/pm_faq/84"] },
+              { id: 85, title: "Чем вреден водопадный подход в гибких командах?", href: "posts/85/", telegram: ["https://t.me/pm_faq/85"] },
+              { id: 86, title: "«Бутылочное горлышко» и «фактор автобуса»: что это и как их избегать?", href: "posts/86/", telegram: ["https://t.me/pm_faq/86"] }
             ]
           },
           {
             title: "Создание доверия",
             id: "sub5_3",
             posts: [
-              { title: "Почему доверие — основа хорошей команды?", link: "https://t.me/pm_faq/87" },
-              { title: "Как строить доверие?", link: "https://t.me/pm_faq/88" }
+              { id: 87, title: "Почему доверие — основа хорошей команды?", href: "posts/87/", telegram: ["https://t.me/pm_faq/87"] },
+              { id: 88, title: "Как строить доверие?", href: "posts/88/", telegram: ["https://t.me/pm_faq/88"] }
             ]
           },
           {
             title: "Прозрачность и синхронизация",
             id: "sub5_4",
             posts: [
-              { title: "Что такое синхронные и асинхронные процессы?", link: "https://t.me/pm_faq/89" },
-              { title: "Какие регулярные ритуалы приносят пользу?", link: "https://t.me/pm_faq/90" },
-              { title: "Как организовать эффективные стендапы?", link: "https://t.me/pm_faq/91" },
-              { title: "Как давать и принимать обратную связь?", link: "https://t.me/pm_faq/92" }
+              { id: 89, title: "Что такое синхронные и асинхронные процессы?", href: "posts/89/", telegram: ["https://t.me/pm_faq/89"] },
+              { id: 90, title: "Какие регулярные ритуалы приносят пользу?", href: "posts/90/", telegram: ["https://t.me/pm_faq/90"] },
+              { id: 91, title: "Как организовать эффективные стендапы?", href: "posts/91/", telegram: ["https://t.me/pm_faq/91"] },
+              { id: 92, title: "Как давать и принимать обратную связь?", href: "posts/92/", telegram: ["https://t.me/pm_faq/92", "https://t.me/pm_faq/93"] }
             ]
           },
           {
             title: "Конфликты и решения",
             id: "sub5_5",
             posts: [
-              { title: "Как реагировать на напряжение и превращать его в продуктивный результат?", link: "https://t.me/pm_faq/94" },
-              { title: "Как говорить «нет» конструктивно?", link: "https://t.me/pm_faq/95" }
+              { id: 94, title: "Как реагировать на напряжение и превращать его в продуктивный результат?", href: "posts/94/", telegram: ["https://t.me/pm_faq/94"] },
+              { id: 95, title: "Как говорить «нет» конструктивно?", href: "posts/95/", telegram: ["https://t.me/pm_faq/95"] }
             ]
           },
           {
             title: "Итог пятой главы",
             id: "sub5_6",
             posts: [
-              { title: "Итоги", link: "https://t.me/pm_faq/96" }
+              { id: 96, title: "Итог пятой главы", href: "posts/96/", telegram: ["https://t.me/pm_faq/96"] }
             ]
           },
           {
-            title: "Extra",
+            title: "Дополнительные материалы",
             id: "sub5_7",
             posts: [
-              { title: "«От хорошего к великому». 7 важных выводов", link: "https://t.me/pm_faq/125" }
+              { id: 125, title: "«От хорошего к великому». 7 важных выводов", href: "posts/125/", telegram: ["https://t.me/pm_faq/125", "https://t.me/pm_faq/126"] }
             ]
           }
         ]
@@ -1141,45 +1143,45 @@
             title: "Основы метрик",
             id: "sub6_1",
             posts: [
-              { title: "Какие инструменты использовать?", link: "https://t.me/pm_faq/97" },
-              { title: "Как выбирать ключевые метрики для продукта?", link: "https://t.me/pm_faq/98" },
-              { title: "Какие источники данных использовать?", link: "https://t.me/pm_faq/99" },
-              { title: "Как выбирать метрики для новых функций?", link: "https://t.me/pm_faq/100" },
-              { title: "Как внедрить аналитику, если сейчас её совсем нет?", link: "https://t.me/pm_faq/101" },
-              { title: "Какие главные ошибки при работе с аналитикой?", link: "https://t.me/pm_faq/102" }
+              { id: 97, title: "Какие инструменты использовать для аналитики продукта?", href: "posts/97/", telegram: ["https://t.me/pm_faq/97"] },
+              { id: 98, title: "Как выбирать ключевые метрики для продукта?", href: "posts/98/", telegram: ["https://t.me/pm_faq/98"] },
+              { id: 99, title: "Какие источники данных использовать?", href: "posts/99/", telegram: ["https://t.me/pm_faq/99"] },
+              { id: 100, title: "Как выбирать метрики для новых функций?", href: "posts/100/", telegram: ["https://t.me/pm_faq/100"] },
+              { id: 101, title: "Как внедрить аналитику, если сейчас её совсем нет?", href: "posts/101/", telegram: ["https://t.me/pm_faq/101"] },
+              { id: 102, title: "Какие главные ошибки при работе с аналитикой?", href: "posts/102/", telegram: ["https://t.me/pm_faq/102"] }
             ]
           },
           {
             title: "Метрики вовлечения",
             id: "sub6_2",
             posts: [
-              { title: "Что такое вовлеченность и как её измерить?", link: "https://t.me/pm_faq/103" },
-              { title: "Что показывает коэффициент удержания пользователей?", link: "https://t.me/pm_faq/104" }
+              { id: 103, title: "Что такое вовлеченность и как её измерить?", href: "posts/103/", telegram: ["https://t.me/pm_faq/103"] },
+              { id: 104, title: "Что показывает коэффициент удержания пользователей?", href: "posts/104/", telegram: ["https://t.me/pm_faq/104"] }
             ]
           },
           {
-            title: "Бизнес метрики",
+            title: "Бизнес-метрики",
             id: "sub6_3",
             posts: [
-              { title: "Какие метрики отражают экономическую ценность продукта?", link: "https://t.me/pm_faq/105" },
-              { title: "Как связать поведение пользователей с доходом?", link: "https://t.me/pm_faq/106" }
+              { id: 105, title: "Какие метрики отражают экономическую ценность продукта?", href: "posts/105/", telegram: ["https://t.me/pm_faq/105"] },
+              { id: 106, title: "Как связать поведение пользователей с доходом?", href: "posts/106/", telegram: ["https://t.me/pm_faq/106"] }
             ]
           },
           {
             title: "Работа с результатом",
             id: "sub6_4",
             posts: [
-              { title: "Как формулировать ожидаемый результат?", link: "https://t.me/pm_faq/107" },
-              { title: "Как интерпретировать результаты?", link: "https://t.me/pm_faq/108" },
-              { title: "Что делать, если данные неочевидны?", link: "https://t.me/pm_faq/109" },
-              { title: "Как избежать ловушек (vanity metrics)?", link: "https://t.me/pm_faq/110" }
+              { id: 107, title: "Как формулировать ожидаемый результат?", href: "posts/107/", telegram: ["https://t.me/pm_faq/107"] },
+              { id: 108, title: "Как интерпретировать результаты?", href: "posts/108/", telegram: ["https://t.me/pm_faq/108"] },
+              { id: 109, title: "Что делать, если данные неочевидны?", href: "posts/109/", telegram: ["https://t.me/pm_faq/109"] },
+              { id: 110, title: "Как избежать ловушек (vanity metrics)?", href: "posts/110/", telegram: ["https://t.me/pm_faq/110"] }
             ]
           },
           {
             title: "Итог шестой главы",
             id: "sub6_5",
             posts: [
-              { title: "Итоги", link: "https://t.me/pm_faq/111" }
+              { id: 111, title: "Итог шестой главы", href: "posts/111/", telegram: ["https://t.me/pm_faq/111"] }
             ]
           }
         ]
@@ -1192,39 +1194,39 @@
             title: "Приоритизация",
             id: "sub7_1",
             posts: [
-              { title: "Как выбрать, что делать в первую очередь?", link: "https://t.me/pm_faq/113" },
-              { title: "Почему нельзя делать всё?", link: "https://t.me/pm_faq/114" },
-              { title: "Как приоритизировать направления?", link: "https://t.me/pm_faq/115" },
-              { title: "Какие фреймворки помогают приоритизировать задачи?", link: "https://t.me/pm_faq/116" }
+              { id: 113, title: "Как выбрать, что делать в первую очередь?", href: "posts/113/", telegram: ["https://t.me/pm_faq/113"] },
+              { id: 114, title: "Почему нельзя делать всё?", href: "posts/114/", telegram: ["https://t.me/pm_faq/114"] },
+              { id: 115, title: "Как приоритизировать направления?", href: "posts/115/", telegram: ["https://t.me/pm_faq/115"] },
+              { id: 116, title: "Какие фреймворки помогают приоритизировать задачи?", href: "posts/116/", telegram: ["https://t.me/pm_faq/116"] }
             ]
           },
           {
             title: "Принятие решений",
             id: "sub7_2",
             posts: [
-              { title: "Как принимать решения, когда есть несколько сильных альтернатив?", link: "https://t.me/pm_faq/117" },
-              { title: "Когда применять AARRR-анализ?", link: "https://t.me/pm_faq/118" }
+              { id: 117, title: "Как принимать решения, когда есть несколько сильных альтернатив?", href: "posts/117/", telegram: ["https://t.me/pm_faq/117"] },
+              { id: 118, title: "Когда применять AARRR-анализ?", href: "posts/118/", telegram: ["https://t.me/pm_faq/118"] }
             ]
           },
           {
             title: "Прозрачность решений",
             id: "sub7_3",
             posts: [
-              { title: "Как документировать и объяснять свои решения команде и стейкхолдерам?", link: "https://t.me/pm_faq/119" },
-              { title: "Как держать команду в фокусе?", link: "https://t.me/pm_faq/120" },
-              { title: "Как проверять, что решение было верным?", link: "https://t.me/pm_faq/121" }
+              { id: 119, title: "Как документировать и объяснять свои решения команде и стейкхолдерам?", href: "posts/119/", telegram: ["https://t.me/pm_faq/119"] },
+              { id: 120, title: "Как держать команду в фокусе?", href: "posts/120/", telegram: ["https://t.me/pm_faq/120"] },
+              { id: 121, title: "Как проверять, что решение было верным?", href: "posts/121/", telegram: ["https://t.me/pm_faq/121"] }
             ]
           },
           {
             title: "Итог седьмой главы",
             id: "sub7_4",
             posts: [
-              { title: "Итоги", link: "https://t.me/pm_faq/122" }
+              { id: 122, title: "Итог седьмой главы", href: "posts/122/", telegram: ["https://t.me/pm_faq/122"] }
             ]
           }
         ]
       }
-      
+
     ];
 
     const toc = document.getElementById("toc");
@@ -1387,9 +1389,8 @@
           postItem.className = "post-item";
           postItem.dataset.search = post.title.toLowerCase();
           postLink.className = "post-link";
-          postLink.href = post.link;
-          postLink.target = "_blank";
-          postLink.rel = "noopener noreferrer";
+          postLink.href = post.href;
+          postLink.addEventListener("click", () => saveState(chapter.id, subchapter.id));
           postTitle.textContent = post.title;
           postLink.append(postTitle);
           postLink.insertAdjacentHTML("beforeend", arrowSVG);
@@ -1512,7 +1513,3 @@
   </script>
 </body>
 </html>
-
-
-
-
