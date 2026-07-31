@@ -1,0 +1,6 @@
+# The repository keeps source material next to the generated static site.
+# GitHub Pages should publish only the visitor-facing files.
+exclude:
+  - README.md
+  - content
+  - scripts

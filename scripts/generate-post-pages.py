@@ -19,6 +19,8 @@ from urllib.parse import parse_qs, unquote, urlparse
 
 
 SITE_URL = "https://rutboy.github.io/pm_faq"
+NOSCRIPT_TOC_START = "<!-- generated:noscript-toc:start -->"
+NOSCRIPT_TOC_END = "<!-- generated:noscript-toc:end -->"
 SPLIT_POSTS = {13: 14, 18: 19, 52: 53, 92: 93, 125: 126}
 SUMMARY_HEADINGS = {
     27: "Итог первой главы",
@@ -177,6 +179,81 @@ def parse_toc(index_html: str) -> list[Post]:
     if len(set(source_ids)) != len(source_ids):
         raise ValueError("В tocData обнаружены дублирующиеся ссылки на Telegram-публикации")
     return posts
+
+
+def render_noscript_toc(posts: list[Post]) -> str:
+    """Render crawlable navigation and a usable fallback when JavaScript is disabled."""
+    lines = [
+        '<section class="noscript-toc" aria-labelledby="noscript-toc-title">',
+        '  <h2 id="noscript-toc-title">Все материалы</h2>',
+        "  <p>Интерактивное оглавление требует JavaScript, но все статьи доступны по ссылкам ниже.</p>",
+        '  <div class="noscript-chapters">',
+    ]
+    current_chapter: str | None = None
+    current_subchapter: str | None = None
+
+    for post in posts:
+        if post.chapter != current_chapter:
+            if current_subchapter is not None:
+                lines.extend(["        </ul>", "      </section>"])
+            if current_chapter is not None:
+                lines.append("    </section>")
+            lines.extend(
+                [
+                    '    <section class="noscript-chapter">',
+                    f"      <h3>{html.escape(post.chapter)}</h3>",
+                ]
+            )
+            current_chapter = post.chapter
+            current_subchapter = None
+
+        if post.subchapter != current_subchapter:
+            if current_subchapter is not None:
+                lines.extend(["        </ul>", "      </section>"])
+            lines.extend(
+                [
+                    '      <section class="noscript-subchapter">',
+                    f"        <h4>{html.escape(post.subchapter)}</h4>",
+                    "        <ul>",
+                ]
+            )
+            current_subchapter = post.subchapter
+
+        lines.append(
+            f'          <li><a href="{html.escape(post.href, quote=True)}">'
+            f"{html.escape(post.title)}</a></li>"
+        )
+
+    if current_subchapter is not None:
+        lines.extend(["        </ul>", "      </section>"])
+    if current_chapter is not None:
+        lines.append("    </section>")
+    lines.extend(["  </div>", "</section>"])
+    return "\n".join(lines)
+
+
+def update_noscript_toc(index_path: Path, index_html: str, posts: list[Post]) -> None:
+    pattern = re.compile(
+        rf"(?P<indent>^[ \t]*){re.escape(NOSCRIPT_TOC_START)}\n"
+        rf"[\s\S]*?\n(?P=indent){re.escape(NOSCRIPT_TOC_END)}",
+        flags=re.MULTILINE,
+    )
+
+    def replacement(match: re.Match[str]) -> str:
+        indent = match.group("indent")
+        rendered = "\n".join(
+            f"{indent}{line}" if line else "" for line in render_noscript_toc(posts).splitlines()
+        )
+        return (
+            f"{indent}{NOSCRIPT_TOC_START}\n"
+            f"{rendered}\n"
+            f"{indent}{NOSCRIPT_TOC_END}"
+        )
+
+    updated_html, replacements = pattern.subn(replacement, index_html, count=1)
+    if replacements != 1:
+        raise ValueError("Не найдены маркеры статического оглавления в index.html")
+    index_path.write_text(updated_html, encoding="utf-8")
 
 
 def strip_heading_markup(value: str) -> str:
@@ -942,9 +1019,9 @@ def render_page(
     title_text = f"{post.title} | PM FAQ"
     kicker = re.sub(r"^Глава\s+\d+:\s*", "", post.chapter, flags=re.IGNORECASE)
 
-    schema = {
-        "@context": "https://schema.org",
+    article_schema = {
         "@type": "Article",
+        "@id": canonical + "#article",
         "headline": post.title,
         "description": description,
         "inLanguage": "ru-RU",
@@ -952,6 +1029,8 @@ def render_page(
         "dateModified": modified_at.isoformat(),
         "mainEntityOfPage": canonical,
         "image": f"{SITE_URL}/channel-avatar.jpg",
+        "articleSection": post.subchapter,
+        "wordCount": word_count,
         "author": {"@type": "Organization", "name": "PM FAQ", "url": SITE_URL + "/"},
         "publisher": {
             "@type": "Organization",
@@ -960,6 +1039,28 @@ def render_page(
             "logo": {"@type": "ImageObject", "url": f"{SITE_URL}/channel-avatar.jpg"},
         },
         "isPartOf": {"@type": "CollectionPage", "url": SITE_URL + "/"},
+    }
+    breadcrumb_schema = {
+        "@type": "BreadcrumbList",
+        "@id": canonical + "#breadcrumb",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "PM FAQ",
+                "item": SITE_URL + "/",
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": post.title,
+                "item": canonical,
+            },
+        ],
+    }
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [article_schema, breadcrumb_schema],
     }
     schema_json = json.dumps(schema, ensure_ascii=False, indent=6).replace("</", "<\\/")
     previous_head = (
@@ -986,13 +1087,19 @@ def render_page(
   <meta property="og:description" content="{html.escape(description, quote=True)}" />
   <meta property="og:url" content="{canonical}" />
   <meta property="og:image" content="{SITE_URL}/channel-avatar.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="240" />
+  <meta property="og:image:height" content="240" />
+  <meta property="og:image:alt" content="Аватар канала PM FAQ" />
   <meta property="article:published_time" content="{published_at.isoformat()}" />
   <meta property="article:modified_time" content="{modified_at.isoformat()}" />
+  <meta property="article:section" content="{html.escape(post.subchapter, quote=True)}" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="{html.escape(post.title, quote=True)}" />
   <meta name="twitter:description" content="{html.escape(description, quote=True)}" />
   <meta name="twitter:image" content="{SITE_URL}/channel-avatar.jpg" />
+  <meta name="twitter:image:alt" content="Аватар канала PM FAQ" />
 
   <title>{html.escape(title_text)}</title>
   <script type="application/ld+json">
@@ -1134,7 +1241,8 @@ def main() -> None:
         tzinfo=dt.timezone.utc,
     )
 
-    index_html = (output_root / "index.html").read_text(encoding="utf-8")
+    index_path = output_root / "index.html"
+    index_html = index_path.read_text(encoding="utf-8")
     posts = parse_toc(index_html)
     validate_post_directories(output_root, posts)
     sections = parse_markdown_sections(source_path.read_text(encoding="utf-8"))
@@ -1196,6 +1304,7 @@ def main() -> None:
         (page_dir / "index.html").write_text(page, encoding="utf-8")
 
     write_sitemap(output_root, posts, lastmod)
+    update_noscript_toc(index_path, index_html, posts)
     if args.lastmod and not args.telegram_dir:
         write_site_last_modified(metadata_path, lastmod)
     validate_post_directories(output_root, posts)
